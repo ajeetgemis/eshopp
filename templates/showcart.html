@@ -1,0 +1,93 @@
+{% extends 'nav.html' %}
+{% load productcartfilter %}
+{%block main-content%}
+<table class="table table-striped  center">
+  <h1>Your Cart:{{email}}</h1>
+    <thead>
+      <tr>
+        <th scope="col">PID</th>
+        <th scope="col">Image</th>
+        <th scope="col">Product Name</th>
+        
+        <th scope="col">Qty</th>
+        <th scope="col">price</th>
+        <th scope="col">Description</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for value in product%}
+      <tr class="mb-2">
+        <th scope="row">{{value.id}}</th>
+        <td><img src="{{value.p_image.url}}"height="40px" class="rounded-circle" alt="..."></td>
+        <td>{{value.p_name}}</td>
+        <td>{{value|cart_qty:request.session.cart}}</td>
+        <td>{{value.p_price|currency}}</td>
+        <td>{{value.p_description}}</td>
+        <td>{{value|cart_total:request.session.cart}}</td>
+        
+      </tr>
+      {%endfor%}
+      
+    </tbody>
+  
+  </table>
+  <tfoot>
+    <tr>
+      <th class=" fa fa-align-center mx-4 px-4 colspan-4">Total</th>
+      
+      <th>{{product|billing_amount:request.session.cart}}</th>
+    </tr>
+  </tfoot>
+  <input type="submit" class="btn btn-primary btn-lr" data-toggle="modal" data-target="#exampleModal"value="checkout">
+  
+  <!-- Button trigger modal -->
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Your Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class ="form-group" action="{%url 'checkoutcart'%}" method="post">
+          {% csrf_token %}
+          <div class="form-group col-md-10">
+            <label for="inputCity">Phone Number:</label>
+            <input type="text"name="pnumber" class="form-control" id="inputCity">
+          </div>
+          <div class="form-group col-md-10">
+            <label for="inputCity">Email-:</label>
+            <input type="text"name="email" class="form-control" id="inputCity">
+          </div>
+          <div class="form-group col-md-10">
+            <label for="inputCity">Address1:</label>
+            <input type="text"name="address1" class="form-control" id="inputCity">
+          </div>
+          <div class="form-group col-md-10">
+            <label for="inputCity">Address2:</label>
+            <input type="text"name="address2" class="form-control" id="inputCity">
+          </div>
+          {%if msg%}
+
+          <div class="alert alert-success" role="alert">
+            {{msg}}
+            </div>
+          {%endif%}  
+          <div class="modal-footer">
+           
+            <input id="" type="submit" class="btn btn-primary" value="Process">
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+{% endblock main-content%}

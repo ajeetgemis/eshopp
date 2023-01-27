@@ -1,0 +1,88 @@
+{% extends 'nav.html' %}
+{% load productcartfilter %}
+{%block main-content%}
+<table class="table table-striped  center">
+  <h1>Your Cart:{{email}}</h1>
+    <thead>
+      <tr>
+        <th scope="col">PID</th>
+        <th scope="col">Image</th>
+        <th scope="col">Product Name</th>
+        
+        <th scope="col">Qty</th>
+        <th scope="col">price</th>
+        <th scope="col">Description</th>
+        <th scope="col">Total</th>
+        <th scope="col">status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for value in product%}
+      <tr class="mb-2">
+        <th scope="row">{{value.id}}</th>
+        <td><img src="{{value.p_image.url}}"height="40px" class="rounded-circle" alt="..."></td>
+        <td>{{value.p_name}}</td>
+        <td>{{value|cart_qty:request.session.cart}}</td>
+        <td>{{value.p_price|currency}}</td>
+        <td>{{value.p_description}}</td>
+        <td>{{value|cart_total:request.session.cart}}</td>
+        
+      </tr>
+      {%endfor%}
+      
+    </tbody>
+  
+  </table>
+  
+  <h1>{{rozerobj}}<h1>
+    <h1>{{api_key}}<h1>
+  <!-- Button trigger modal -->
+  <form action="{%url 'rozerpayment'%}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="order">
+    </form>
+  
+
+
+
+      </div>
+      
+    </div>
+  </div>
+ 
+</div>
+{% endblock main-content%}
+{%block payment-content%}
+
+<button type="submit" id="rzp-button1">Makepayment</button>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_KV97WEHyPMeNV2", // Enter the Key ID generated from the Dashboard
+    "amount": "50000", // passthe amount from view
+    "currency": "INR",//static no need to change
+    "name": "Acme Corp",//name of the company
+    "description": "Test Transaction",
+    "callback_url":"http://127.0.0.1:8000/handelrequestpaytm/",
+    "order_id": "{{rozerobj}}", //This is a sample Order ID. get from your view and pass here
+    "prefill": 
+    {
+        "name": "Ajeet Kumar",
+        "email": "ajeet.kumar@example.com",
+        "contact": "7041100397"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){       
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+{% endblock payment-content%}
