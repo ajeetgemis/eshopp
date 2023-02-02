@@ -24,15 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&i-cgpktev-099n(rw$-*$nmwtq4g2izli&9jcg!k-a)+m5k1h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['13.235.246.207']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django_crontab',
     'shop',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -83,10 +82,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-CRONJOBS = [
-    ('*/1 * * * *', 'shop.cron.autofun'),
 
-]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -112,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -132,5 +128,5 @@ MEDIA_ROOT='BASE_DIR'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-ROZERPAY_ID="rzp_test_KV97WEHyPMeNV2"
-ROZERPAY_ACC_ID="SZWXx3pV3WWf1PaUtPmH8tKw"
+ROZERPAY_ID="rzp_test_e1W4G7C2XgPYRt"
+ROZERPAY_ACC_ID="P6HK36iqmfD78jCzWpaY1cIU"

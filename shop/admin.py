@@ -18,6 +18,7 @@ class orderadmin(admin.ModelAdmin):
     inlines=[adminorderitems]
 admin.site.register(testorders,orderadmin)
 admin.site.register(orderitems)
+
 @admin.register(orders)
 class ordertable(admin.ModelAdmin):
     list_display=['customer','order_items','total_price','order_id','razorpay_payment_id','razorpay_signature','payment_status']

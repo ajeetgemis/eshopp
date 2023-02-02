@@ -58,13 +58,14 @@
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
+ 
 var options = {
-    "key": "rzp_test_KV97WEHyPMeNV2", // Enter the Key ID generated from the Dashboard
+    "key": "{{api_key}}", // Enter the Key ID generated from the Dashboard
     "amount": "50000", // passthe amount from view
     "currency": "INR",//static no need to change
     "name": "Acme Corp",//name of the company
     "description": "Test Transaction",
-    "callback_url":"http://127.0.0.1:8000/handelrequestpaytm/",
+    "callback_url":"{{callback_url}}",
     "order_id": "{{rozerobj}}", //This is a sample Order ID. get from your view and pass here
     "prefill": 
     {

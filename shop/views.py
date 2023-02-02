@@ -14,9 +14,10 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 import razorpay
 from  .models.orders import orders
+import random
 
-roz_client=razorpay.Client(auth=(ROZERPAY_ID,ROZERPAY_ACC_ID))
-print(roz_client)        
+orderid=random.randint(100000,10000000)
+
 
 # Create your views here.
 class orders_status(View):
@@ -114,7 +115,7 @@ def login_customer(request):
                 request.session['customer_email']=cust.email
                 print("you are:",request.session.get('customer_id'))
                 print("you are:",request.session.get('customer_email'))
-                print("you are:",request.session.META('customer_email'))
+              #  print("you are:",request.session.META('customer_email'))
                 
                 
                 return render(request,'signup.html',{'loginmsg':message})
@@ -172,11 +173,14 @@ def rozerpayment(request):
         callback_url="http://127.0.0.1:8000/handelrequestpaytm/"
         print(callback_url)
         amount=total_price
-        order_id="12345hgtd"
+        order_id="bhjbhjb1234"
         currency="INR"
         phone_number="7041100397"
         email="ajeetchoudhary537@gmail.com"
-        print(settings.ROZERPAY_ID)
+       # print(settings.ROZERPAY_ID)
+        roz_client=razorpay.Client(auth=(ROZERPAY_ID,ROZERPAY_ACC_ID))
+        print("rozer auth",roz_client)        
+        print(ROZERPAY_ID)
         rozerclinetorder=roz_client.order.create({'payment_capture':'0','receipt':order_id,'amount':amount,'currency':'INR'})
         print(rozerclinetorder['id'])
         request.session['order_id']=rozerclinetorder['id']
